@@ -1,5 +1,4 @@
 import {db} from "../../config/connect.js"
-import redisClient from "../../config/redis.js";
 //delete a user
 export const deleteUser = (req,res) =>{
     const userId = req.params.id
