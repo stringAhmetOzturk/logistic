@@ -1,14 +1,16 @@
-// import express from "express"
-// const router = express.Router()
-// import { cacheGet,cacheDelete } from "../controllers/cache.js"
-// import {getAllUsers,getUser} from "../controllers/users/get.users.js"
-// import {createUser} from "../controllers/users/create.users.js"
-// import {updateUser} from "../controllers/users/update.users.js"
-// import {deleteUser} from "../controllers/users/delete.users.js"
-// router.post("/",cacheDelete,createUser)
-// router.get("/", cacheGet,getAllUsers);
-// router.get("/:id",getUser)
-// router.put("/:id",cacheDelete,updateUser)
-// router.delete("/:id",cacheDelete,deleteUser)
+import express from "express"
+const router = express.Router()
+import { cacheGet,cacheDelete } from "../controllers/cache.js"
+import {getAllCustomers,getCustomer} from "../controllers/customers/get.customers.js"
+import {createCustomer} from "../controllers/customers/create.customers.js"
+import {updateCustomer} from "../controllers/customers/update.customers.js"
+import {deleteCustomer} from "../controllers/customers/delete.customers.js"
+import { verify } from "../config/jwt.js"
 
-// export default router
+router.post("/",cacheDelete("customers"),createCustomer)
+router.get("/", cacheGet("customers"),getAllCustomers);
+router.get("/:id",getCustomer)
+router.put("/:id",verify,cacheDelete("customers"),updateCustomer)
+router.delete("/:id",verify,cacheDelete("customers"),deleteCustomer)
+
+export default router

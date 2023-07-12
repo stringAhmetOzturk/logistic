@@ -5,6 +5,7 @@ import customerRoute from "./routes/customers.js"
 import driverRoute from "./routes/drivers.js"
 import shippingRoute from "./routes/shippings.js"
 import userRoute from "./routes/users.js"
+import authRoute from "./routes/auth.js"
 import vehiclesRoute from "./routes/vehicles.js"
 import cors from "cors"
 const app = express()
@@ -20,6 +21,7 @@ app.use("/customers", customerRoute);
 app.use("/drivers", driverRoute);
 app.use("/shippings", shippingRoute);
 app.use("/users", userRoute);
+app.use("/auth", authRoute);
 app.use("/vehicles", vehiclesRoute);
 //listen server
 app.listen(port, () => {

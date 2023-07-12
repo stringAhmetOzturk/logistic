@@ -1,14 +1,16 @@
-// import express from "express"
-// const router = express.Router()
-// import { cacheGet,cacheDelete } from "../controllers/cache.js"
-// import {getAllUsers,getUser} from "../controllers/users/get.users.js"
-// import {createUser} from "../controllers/users/create.users.js"
-// import {updateUser} from "../controllers/users/update.users.js"
-// import {deleteUser} from "../controllers/users/delete.users.js"
-// router.post("/",cacheDelete,createUser)
-// router.get("/", cacheGet,getAllUsers);
-// router.get("/:id",getUser)
-// router.put("/:id",cacheDelete,updateUser)
-// router.delete("/:id",cacheDelete,deleteUser)
+import express from "express"
+const router = express.Router()
+import { cacheGet,cacheDelete } from "../controllers/cache.js"
+import {getAllDrivers,getDriver} from "../controllers/drivers/get.drivers.js"
+import {createDriver} from "../controllers/drivers/create.drivers.js"
+import {updateDriver} from "../controllers/drivers/update.drivers.js"
+import {deleteDriver} from "../controllers/drivers/delete.drivers.js"
+import { verify } from "../config/jwt.js"
 
-// export default router
+router.post("/",cacheDelete("drivers"),createDriver)
+router.get("/", cacheGet("drivers"),getAllDrivers);
+router.get("/:id",getDriver)
+router.put("/:id",verify,cacheDelete("drivers"),updateDriver)
+router.delete("/:id",verify,cacheDelete("drivers"),deleteDriver)
+
+export default router

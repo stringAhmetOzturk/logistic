@@ -1,7 +1,8 @@
 import redisClient from "../config/redis.js";
 
 //get cache
-export async function cacheGet(redisKey,req, res, next) {
+export function cacheGet(redisKey){
+  return async(req, res, next)=>{
     try {
       const cacheResults = await redisClient.get(redisKey);
       if (cacheResults) {
@@ -18,14 +19,15 @@ export async function cacheGet(redisKey,req, res, next) {
       console.error(error);
       res.status(404).send("Data unavailable");
     }
-  }
+  }}
 
 // delete cache
-export async function cacheDelete(redisKey,req,res,next){
-    try {
-        await redisClient.del(redisKey);
-        next()
-    } catch (error) {
-        
-    }
-}
+export function cacheDelete(redisKey){
+return async(req,res,next) =>{
+  try {
+      await redisClient.del(redisKey);
+      next()
+  } catch (error) {
+      
+  }
+}}
