@@ -1,15 +1,20 @@
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/login/Login";
+import Profile from "./pages/profile/Profile"
+import Home from "./pages/home/Home";
 function App() {
   return (
-<div className="flex ">
-  <Sidebar/>
-  <div>
-  <Navbar/>
-  <div>home</div>
-  </div>
-</div>
+    <BrowserRouter>
+    <Routes>
+        <Route path="/"> 
+          {/* <Route index element={user ? <Home/> :<Login />} />
+          <Route path="profile" element={user ? <Profile /> :<Login />} /> */}
+          <Route index element={<Login />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+        {/* <Route path="*" element={<NotFound />} /> */}
+    </Routes>
+  </BrowserRouter>
   );
 }
 
