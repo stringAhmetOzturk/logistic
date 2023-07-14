@@ -6,11 +6,11 @@ import jwt from "jsonwebtoken"
 export async function login(req,res){
     const username = req.body.username
     const password = req.body.password
-  
     if (username && password) {
+      
         const q = "SELECT * FROM users WHERE username = ?";
         db.query(q, username, async (error, data) => {
-           
+ 
             if (error || data[0] == null) {
                 res.status(401).json({ message: "Invalid username or password" });
             }else{
@@ -19,7 +19,14 @@ export async function login(req,res){
                   res.status(500).json({ message: "An error occurred during login" });
                 } else if (result) {
                   const accessToken = jwt.sign({id:data[0].id,username:data[0].username},"mySecretKey",{expiresIn:"10m"})
-                  res.status(200).json({ message: "success" , data:{id:data[0].id,username:data[0].username,accessToken}});
+                  res.cookie("token",accessToken,{
+                    httpOnly:true
+                  })
+                  res.status(200).json({ message: "success",accessToken});
+                  // return res.redirect("/welcome")
+                  //  res.status(200).json({ message: "success" , data:data});
+                  // res.status(200).json({ message: "success" , data:{accessToken}});
+
                 } else {
                   res.status(401).json({ message: "Invalid username or password" });
                 }
